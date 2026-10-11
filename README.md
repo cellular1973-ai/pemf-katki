@@ -41,5 +41,4 @@ Ayrıntılar: `KATKI.md`. Veri kuralları: `docs/veri-kurallari.md` — **gerçe
 
 ## Hukuki not
 
-Bu depo özeldir; içeriği paylaşılmaz. Katkılar `KATKI-SOZLESMESI-TASLAK.md`'deki koşullara tabidir (taslak — imzalanmadan önce danışmanınız ve
-üniversitenizin ilgili birimiyle gözden geçirilmelidir).
+Bu depo özeldir; içeriği paylaşılmaz. Katkılar `KATKI-SOZLESMESI.md`'deki koşullara tabidir.
