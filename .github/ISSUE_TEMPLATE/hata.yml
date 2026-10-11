@@ -13,7 +13,7 @@ body:
     id: adimlar
     attributes:
       label: Nasıl tekrarlanır?
-      description: Komut, girdi (sentetik), beklenen ve gerçekleşen sonuç.
+      description: Komut, girdi, beklenen ve gerçekleşen sonuç.
     validations:
       required: true
   - type: input

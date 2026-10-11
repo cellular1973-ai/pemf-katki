@@ -12,12 +12,13 @@ uygulamaya alınır.
 
 | Alan | Örnek | Belge |
 |---|---|---|
+| **Düzeltme ve kalibrasyon** | Sahada ölçtüğünüz bir sapma: AI'nın yanıldığı örnekler, plaka / fantom konumu, halka çapı, bobin direnci, sensör sapması — verisi ve önerilen değerle | Issues → Düzeltme / kalibrasyon · [`docs/saha-verisi.md`](docs/saha-verisi.md) |
 | **Yapay zekâ modülleri** | Yeni bir tanı modeli (görüntü, ses ya da tablo verisi) | [`docs/ai-modul-sozlesmesi.md`](docs/ai-modul-sozlesmesi.md), [`docs/model-hazirlama.md`](docs/model-hazirlama.md) |
 | **Açıklanabilirlik (XAI)** | Modelin kararını açıklayan ısı haritası ya da öznitelik katkısı | Sözleşme §5 |
 | **Rapor şablonları, belgeler, çeviri** | Seans raporu taslağı, kullanım kılavuzu | `docs/` altına PR |
 | **Öneri** | Ekran taslağı, eksik özellik, kullanılabilirlik bulgusu | Issues → Öneri |
 
-Neye **katkı alınmaz** (güvenlik gereği): [`KAPSAM.md`](KAPSAM.md).
+Hangi alanlarda **kod** katkısı alınmaz (güvenlik gereği; oralar için düzeltme / kalibrasyon önerisi getirin): [`KAPSAM.md`](KAPSAM.md).
 
 ## Depoda ne var?
 
@@ -28,7 +29,9 @@ Neye **katkı alınmaz** (güvenlik gereği): [`KAPSAM.md`](KAPSAM.md).
 | `KAPSAM.md` | Katkı alınan / alınmayan alanlar |
 | `docs/ai-modul-sozlesmesi.md` | Bir AI modülünün uyması gereken kurallar |
 | `docs/model-hazirlama.md` | Eğitimden ONNX'e, ONNX'ten `predictor.py`'ye; ana uygulamanın paket sürümleri |
-| `docs/veri-kurallari.md` | Hangi veri kullanılabilir (gerçek hasta verisi ASLA) |
+| `docs/saha-verisi.md` | Saha verisi nasıl toplanır, nasıl paylaşılır |
+| `oneriler/` | Düzeltme ve kalibrasyon önerileri (her biri kendi klasöründe) |
+| `sablonlar/duzeltme-kalibrasyon.md` | Öneri şablonu |
 | `docs/entegrasyon.md` | Kabul edilen katkı ana uygulamaya nasıl girer |
 | `araclar/sozlesme_denetimi.py` | Modülünüzü kurallara karşı otomatik denetler |
 | `moduller/ornek_parlaklik/` | Kopyalayıp kullanacağınız çalışan örnek modül |
@@ -46,9 +49,8 @@ pytest                                                            # beklenen: ..
 
 ## Katkı nasıl ilerler?
 
-1. **Konu (issue) açın** — öneri ya da hata şablonuyla. Ekip "olur" deyince başlayın.
-2. Depoyu **fork**'layın, kendi kopyanızda bir dal açıp çalışın, **çekme isteği (PR)** açın. `denetim` CI'ı denetleyiciyi ve testleri koşar.
-3. Proje ekibi inceler ve birleştirir. Kabul edilen katkı ana uygulamaya ekip tarafından alınır (`docs/entegrasyon.md`).
-4. Katkınız sürüm notlarında ve modülün model kartında adınızla anılır.
-
-**Gerçek hasta verisi bu depoya ASLA girmez** — [`docs/veri-kurallari.md`](docs/veri-kurallari.md). Bu depo herkese açıktır.
+1. **Konu (issue) açın** — Düzeltme / kalibrasyon, Öneri ya da Hata formuyla. Basit bir düzeltme için konu yeterlidir.
+2. Ölçüm ya da kod çoksa depoyu **fork**'layın, kendi kopyanızda bir dal açıp çalışın, **çekme isteği (PR)** açın. `denetim` CI'ı
+   denetleyiciyi ve testleri koşar.
+3. Proje ekibi inceler ve birleştirir; kabul edilen katkıyı ana uygulamaya ekip alır (`docs/entegrasyon.md`).
+4. Katkınız sürüm notlarında adınızla anılır.

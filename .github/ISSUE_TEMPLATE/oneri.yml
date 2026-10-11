@@ -4,7 +4,7 @@ labels: ["oneri"]
 body:
   - type: markdown
     attributes:
-      value: "Önce `KAPSAM.md`'ye bakın: bobin sürüşü, ACİL DURDUR, firmware, ödeme ve gerçek hasta verisi kapsam dışıdır."
+      value: "Sahada ölçtüğünüz bir sapma ya da yanlış ayar için **Düzeltme / kalibrasyon** formunu kullanın."
   - type: dropdown
     id: alan
     attributes:
@@ -23,18 +23,11 @@ body:
     id: oneri
     attributes:
       label: Öneriniz
-      description: Ne yapılacak? AI modülüyse girdi türü, çıktı etiketleri ve veri kaynağı (lisansıyla).
+      description: Ne yapılacak? AI modülüyse girdi türü, çıktı etiketleri ve kullanacağınız veri.
     validations:
       required: true
   - type: textarea
     id: taslak
     attributes:
       label: Taslak / ekran görüntüsü (isteğe bağlı)
-      description: Gerçek hasta verisi içeren görüntü EKLEMEYİN.
-  - type: checkboxes
-    id: onay
-    attributes:
-      label: Onay
-      options:
-        - label: Gerçek hasta verisi paylaşmıyorum ve öneri KAPSAM.md'nin kapsam dışı alanlarına dokunmuyor.
-          required: true
+      description: Dosyaları buraya sürükleyip bırakabilirsiniz.

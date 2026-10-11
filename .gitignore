@@ -3,9 +3,8 @@ __pycache__/
 .venv/
 .pytest_cache/
 .ruff_cache/
-# Eğitim verisi ve büyük dosyalar depoya girmez (docs/veri-kurallari.md)
-veri/
-*.zip
+.ipynb_checkpoints/
+# Model ağırlıkları ONNX olarak teslim edilir (docs/model-hazirlama.md)
 *.pt
 *.pth
 *.ckpt

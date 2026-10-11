@@ -10,16 +10,20 @@ Bu rehber, daha önce açık kaynak bir projeye katkı vermemiş biri için yaz�
 **AI Hub** ekranında yapay zekâ modüllerini kullanır: bir fotoğraf, ses kaydı ya da tahlil tablosu yükler, modül bir tahmin ve güven
 değeri döndürür. Örneğin bir termal görüntüden "Sağlıklı / Hasta", bir kedi sesinden ruh hâli.
 
-**Sizin işiniz** bu tür **yeni bir AI modülü** yazmak ya da mevcut fikirleri geliştirmektir. Modülünüz kabul edilirse proje ekibi onu ana
-uygulamaya ekler; hekimler kendi ekranlarında kullanır, sürüm notlarında adınız geçer.
+**Sahada çalışan sizsiniz**: cihazın ve AI modüllerinin gerçek hayvanlarda nasıl davrandığını ilk siz görürsünüz. Bu yüzden en değerli
+katkılardan biri **düzeltme ve kalibrasyon önerileridir**: sahada ölçtüğünüz, gözlediğiniz bir sapmayı verisiyle getirirsiniz, ekip uygular
+(§6). Ayrıca **yeni bir AI modülü** yazabilir (§5) ya da öneri, rapor şablonu, belge getirebilirsiniz (§7). Kabul edilen katkıyı proje ekibi
+ana uygulamaya ekler; sürüm notlarında adınız geçer.
 
-Modülünüz **karar desteğidir**: hekime bilgi verir, tek başına tanı koymaz, cihaza komut göndermez. Cihazın güvenliğiyle ilgili kısımlar
-(bobin sürüşü, ACİL DURDUR, firmware, ödeme) sizin işiniz değildir; bkz. `KAPSAM.md`.
+AI modülleri **karar desteğidir**: hekime bilgi verir, tek başına tanı koymaz, cihaza komut göndermez. Cihazın güvenliğiyle ilgili kısımlarda
+(bobin sürüşü, ACİL DURDUR, firmware, ödeme) **kod** yazılmaz; oralarda gördüğünüz her şeyi düzeltme / kalibrasyon önerisi olarak getirin
+(`KAPSAM.md`).
 
 ## 2. Neler yapabilirsiniz?
 
 | İş | Ne teslim edersiniz | Zorluk |
 |---|---|---|
+| **Düzeltme / kalibrasyon önerisi** | Sahada ölçtüğünüz ya da gözlediğiniz sapma + verisi + önerdiğiniz değer (§6) | Kolay–orta |
 | **Yeni AI modülü** | Eğitilmiş model (ONNX) + `predictor.py` + testler + model kartı | Orta–ileri |
 | **Açıklanabilirlik (XAI)** | Modülünüzün kararını açıklayan ısı haritası ya da öznitelik listesi | İleri |
 | **Öneri** | "Şu ekranda şu eksik / şu modül faydalı olur" — konu (issue) olarak | Kolay |
@@ -61,7 +65,7 @@ git clone https://github.com/<kullanici_adiniz>/pemf-katki.git
 cd pemf-katki
 git remote add upstream https://github.com/mert61-python/pemf-katki.git
 ```
-`upstream`, ana depoyu takip etmenizi sağlar (§9).
+`upstream`, ana depoyu takip etmenizi sağlar (§10).
 
 **4.3 Python ortamını kurun:**
 ```powershell
@@ -76,12 +80,12 @@ Komut satırının başında `(.venv)` görmelisiniz. Her yeni terminalde `activ
 python araclar\sozlesme_denetimi.py moduller\ornek_parlaklik
 pytest
 ```
-Beklenen: `GEÇTİ` ve `... passed`. Hata alırsanız §10'a bakın ya da Tartışmalar (Discussions) bölümünde sorun.
+Beklenen: `GEÇTİ` ve `... passed`. Hata alırsanız §11'e bakın ya da Tartışmalar (Discussions) bölümünde sorun.
 
 ## 5. İlk modülünüz — adım adım
 
 **5.1 Konu açın.** Depoda **Issues → New issue → Öneri**. Formu doldurun: hangi sorunu çözüyor, girdi türü, çıktı etiketleri, kullanacağınız
-veri ve lisansı. Ekip "olur" deyip `ai-modulu` etiketini koyunca başlayın. Konunun numarasını not edin (ör. `#12`).
+veri (saha / açık veri seti). Ekip "olur" deyip `ai-modulu` etiketini koyunca başlayın. Konunun numarasını not edin (ör. `#12`).
 
 **5.2 Kendi dalınızı açın** (her iş için ayrı dal):
 ```powershell
@@ -100,7 +104,7 @@ modelinizin sınıfları; `yazarlar` adınız ve e-postanız.
 
 **5.5 Modelinizi eğitin ve ONNX'e aktarın.** Eğitimi kendi ortamınızda (Colab olabilir) yapın. Model dosyasını `agirliklar\model.onnx` olarak
 koyun ve SHA-256 özetini `MODUL_BILGISI["model_dosyalari"]`'na yazın. Nasıl yapılacağı ve hazır kod iskeleti: **`docs/model-hazirlama.md`**.
-Eğitim verisini depoya KOYMAYIN (yalnız model kartında kaynağını yazın).
+Büyük eğitim veri setini depoya koymayın; bağlantısını model kartına yazın (`docs/saha-verisi.md`).
 
 **5.6 `predictor.py`'yi yazın.** `docs/model-hazirlama.md`'deki iskeleti kullanın. Kurallar `docs/ai-modul-sozlesmesi.md`'de; en önemlileri:
 - ön işleme (boyut, normalizasyon) eğitimdekiyle **birebir aynı** olmalı;
@@ -108,9 +112,9 @@ Eğitim verisini depoya KOYMAYIN (yalnız model kartında kaynağını yazın).
 - dönüş: `{"label": ..., "confidence": ...}` ve isteğe bağlı `probabilities`, `details`, `warnings`.
 
 **5.7 Testleri yazın** (`tests\test_kedi_deri_lezyonu.py`): örnek modüldeki üç test türü — sözleşme alanları, en az iki örnek girdi ve
-beklenen etiket, bozuk girdide anlaşılır `ValueError`. Örnek girdiler küçük (≤ 1 MB) ve sentetik ya da açık lisanslı olmalı.
+beklenen etiket, bozuk girdide anlaşılır `ValueError`. Örnek girdiler küçük (≤ 1 MB) olmalı; sahadan örnek kullanabilirsiniz.
 
-**5.8 Model kartını doldurun** (`MODEL_KARTI.md`, şablon: `sablonlar\model-karti.md`): veri kaynağı ve lisansı, eğitim / test ayrımı,
+**5.8 Model kartını doldurun** (`MODEL_KARTI.md`, şablon: `sablonlar\model-karti.md`): veri kaynağı (saha / açık veri seti), eğitim / test ayrımı,
 ayrı test kümesindeki metrikler ve nasıl hesaplandıkları, bilinen sınırlar.
 
 **5.9 Yerelde denetleyin** — üçü de temiz olmadan PR açmayın:
@@ -139,22 +143,62 @@ PR kendiliğinden güncellenir.
 **5.14 Sonrası.** Birleştirilen modülü ana uygulamaya ekip alır: kendi ortamında yeniden ölçer, uygulamanın güvenlik kurallarına uyarlar,
 bağımsız bir incelemeden geçirir (`docs/entegrasyon.md`). Bu birkaç hafta sürebilir; sonucu konunuzda duyurulur.
 
-## 6. Öneri, rapor şablonu, belge
+## 6. Düzeltme ve kalibrasyon önerisi — adım adım
 
-- **Öneri:** Issues → Öneri formu. Ekran önerisiyse bir taslak çizimi (kâğıt fotoğrafı da olur) ekleyin. **Gerçek hasta verisi içeren ekran
-  görüntüsü eklemeyin.**
+Sahada bir şeyin yanlış ya da kayık olduğunu gördüğünüzde: ölçün, veriyle belgeleyin, düzeltmeyi önerin. Cihazın ayarını kendiniz
+değiştirmeyin; önerinizi ekip uygular.
+
+**Neler önerilebilir? (örnekler)**
+
+| Konu | Ne ölçülür / toplanır | Ne önerilir |
+|---|---|---|
+| AI modülü sahada yanılıyor | yanlış ve doğru sonuçlu örnekler: girdi + modelin sonucu + doğru sonuç | eşik değişikliği, yeniden eğitim için veri |
+| Petri plakasının kabindeki konumu | A1 kuyucuğunun kabin koordinatı (x, y, z mm), plakanın yönü | yapılandırmadaki plaka konumu |
+| Fantom eksen yönü | fantomun uzun / kısa ekseninin kabinde hangi yöne baktığı | eksen işareti |
+| Yeşil halka çapı | şerit metreyle çap (bugün 184 mm varsayılıyor) | halka çapı değeri |
+| Petri kanser renk eşikleri | kontrol kuyucuklarıyla (sağlıklı / kanserli bilinen) görüntüler | renk eşikleri |
+| Kabin ve kamera | ArUco işaretinin yeri, kamera açısı, bilinen bir noktanın ölçülen ve uygulamanın gösterdiği konumu | kamera / kabin kalibrasyonu |
+| Bobin | bobin direnci (multimetre), bobin merkezinde ölçülen alan (mT) ile uygulamanın gösterdiği değer | direnç değeri, alan düzeltme katsayısı |
+| Sensör | sıcaklık / akım okumasının referans aletle karşılaştırması | sapma (offset) ve ölçek düzeltmesi |
+| Arayüz | yanlış birim, yanlış etiket, anlaşılmayan uyarı (ekran görüntüsüyle) | doğru metin / birim |
+
+**6.1 Konu açın:** Issues → **Düzeltme / kalibrasyon** formu. Ne gördüğünüzü, koşulları ve önerinizi kısaca yazın; küçük dosyaları
+(fotoğraf, CSV) forma sürükleyip bırakabilirsiniz. Basit bir düzeltme için bu kadarı yeterlidir.
+
+**6.2 Ölçüm ya da veri çoksa öneri klasörü hazırlayın:**
+```powershell
+git switch ana
+git fetch upstream
+git merge upstream/ana
+git switch -c halka-capi
+mkdir oneriler\2026-10-14-yesil-halka-capi\veri\ham
+copy sablonlar\duzeltme-kalibrasyon.md oneriler\2026-10-14-yesil-halka-capi\README.md
+```
+Ölçüm dosyalarınızı `veri\ham\` altına koyun, `README.md`'yi doldurun: ne gördünüz, koşullar (tarih, cihaz, yazılım sürümü, ölçüm aleti),
+veri, analiz, önerilen değer, ekip nasıl doğrulayabilir. Veriyi nasıl düzenleyeceğiniz: **`docs/saha-verisi.md`**.
+
+**6.3 Gönderin ve PR açın** (§5.10–5.13 ile aynı): `git add oneriler\2026-10-14-yesil-halka-capi` → `git commit -m "yesil halka capi: olcum
+ve oneri"` → `git push -u origin halka-capi` → PR, açıklamaya `Kapatır #<konu>`.
+
+**6.4 Sonrası:** ekip ölçümünüzü inceler (gerekirse tekrar ettirir), öneriyi ana uygulamaya ayar ya da düzeltme olarak işler ve konuda
+duyurur.
+
+**Ölçüm yaparken:** cihaz çalışırken ölçüyorsanız ACİL DURDUR elinizin altında olsun; seans ve cihaz ayarlarını ölçüm için değiştirmeniz
+gerekiyorsa hekim / sorumlu kişiyle birlikte yapın.
+
+## 7. Öneri, rapor şablonu, belge
+
+- **Öneri:** Issues → Öneri formu. Ekran önerisiyse bir taslak çizimi (kâğıt fotoğrafı da olur) ya da ekran görüntüsü ekleyin.
 - **Rapor şablonu / belge / çeviri:** `docs\` altında yeni bir Markdown dosyası olarak yazın, §5.10–5.13'teki gibi PR açın.
 
-## 7. Kurallar (özet)
+## 8. Kurallar (özet)
 
-1. **Gerçek hasta verisi yok** — sentetik ya da ticari kullanıma izin veren açık lisanslı veri (`docs/veri-kurallari.md`).
-2. **Kapsam dışı alanlara dokunmayın** (`KAPSAM.md`).
-3. **Sır yok** — parola, API anahtarı, jeton commit'lenmez.
-4. **Dosya boyutu** — model dosyası ≤ 95 MB; örnek girdiler ≤ 1 MB.
-5. **Başkasının kodu ya da modeli** — lisansını ve kaynağını model kartına yazın.
-6. Bu depo herkese açıktır: yazdığınız her şeyi herkes görebilir.
+1. **Kod katkısı alınmayan alanlarda** (`KAPSAM.md`) kod yazmayın; oralar için düzeltme / kalibrasyon önerisi getirin.
+2. **Sır yok** — parola, API anahtarı, jeton commit'lenmez.
+3. **Dosya boyutu** — model dosyası ≤ 95 MB; tek veri dosyası ≤ 50 MB; testlerdeki örnek girdiler ≤ 1 MB.
+4. **Başka kaynaktan aldığınız kod, model ya da veri** — kaynağını yazın.
 
-## 8. Git'te sık kullanılanlar
+## 9. Git'te sık kullanılanlar
 
 | Ne yapmak istiyorsunuz | Komut |
 |---|---|
@@ -166,7 +210,7 @@ bağımsız bir incelemeden geçirir (`docs/entegrasyon.md`). Bu birkaç hafta s
 | Kopyanıza gönder | `git push` |
 | Son commit mesajını düzelt (henüz push etmediyseniz) | `git commit --amend` |
 
-## 9. Kopyanızı ana depoyla güncel tutmak
+## 10. Kopyanızı ana depoyla güncel tutmak
 
 Başkalarının katkıları ana depoya girdikçe kopyanız geride kalır. Yeni bir işe başlamadan önce:
 ```powershell
@@ -179,7 +223,7 @@ git switch -c yeni-is
 Açık bir PR'ınız varken ana depo değiştiyse ve GitHub "çakışma var" diyorsa: `git switch <dalınız>` → `git merge ana` → çakışan dosyaları
 VS Code'da düzeltin → `git add` → `git commit` → `git push`.
 
-## 10. Denetleyici ne dedi, ne yapmalı?
+## 11. Denetleyici ne dedi, ne yapmalı?
 
 | Mesaj | Anlamı | Çözüm |
 |---|---|---|
@@ -194,12 +238,13 @@ VS Code'da düzeltin → `git add` → `git commit` → `git push`.
 | `predict() X sn > 10 sn` | Çok yavaş | Daha küçük model, daha küçük girdi boyutu ya da nicemleme (quantization) |
 | `label ... etiketler içinde değil` | Döndürdüğünüz etiket listede yok | `MODUL_BILGISI["etiketler"]` ile aynı yazımı kullanın |
 
-## 11. Sık sorulanlar
+## 12. Sık sorulanlar
 
 - **GPU şart mı?** Hayır. Eğitimi GPU'da (Colab) yapabilirsiniz; teslim edilen modül CPU'da çalışmalı.
 - **Python 3.12 ile eğitebilir miyim?** Evet. Ama `predictor.py` Python 3.10 ve numpy 1.26 ile çalışmalı; denetleyiciyi 3.10 ortamında koşun.
 - **PyTorch `.pt` dosyası teslim edebilir miyim?** Hayır, ONNX'e çevirin (`docs/model-hazirlama.md`).
 - **Modelim 95 MB'tan büyük.** Daha küçük bir mimari ya da nicemleme deneyin; olmuyorsa konunuzda yazın.
-- **Veri nereden bulurum?** Açık lisanslı veri setleri (Kaggle, Zenodo, makale ekleri) — lisansın ticari kullanıma ve türetmeye izin verdiğini
-  denetleyin. Lisansı belirsizse kullanmayın, sorun.
+- **Veri nereden bulurum?** En değerlisi sahada kendi topladığınız veri (`docs/saha-verisi.md`). Eğitim için yetmezse açık veri setleri
+  (Kaggle, Zenodo, makale ekleri) ile tamamlayın; kaynağını model kartına yazın.
+- **Cihazın bir ayarını değiştirmek gerekiyor.** Kendiniz değiştirmeyin; ölçümünüzle düzeltme / kalibrasyon önerisi açın (§6), ekip uygular.
 - **Takıldım.** Discussions bölümünde soru açın ya da konunuza yorum yazın.

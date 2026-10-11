@@ -15,9 +15,9 @@ Hangi hayvan, hangi soru, kim kullanır. **Karar desteğidir; tek başına tanı
 Model nerede yanılır ya da hiç denenmedi (tür, yaş, çekim koşulu …).
 
 ## Veri
-- Kaynak ve lisans (bağlantıyla). Lisans ticari kullanıma ve türetmeye izin veriyor mu?
+- Kaynak: saha verisi (nerede, ne zaman, hangi cihazla toplandı) ve / veya açık veri seti (bağlantı).
 - Örnek sayısı, sınıf dağılımı, eğitim / doğrulama / test ayrımı (aynı hayvan iki kümede olmamalı).
-- Gerçek hasta verisi kullanılmadı (veri kuralları).
+- Etiketleri kim belirledi (hekim, laboratuvar sonucu …).
 
 ## Yöntem
 Mimari, ön işleme, eğitim ayarları, ONNX'e aktarma.

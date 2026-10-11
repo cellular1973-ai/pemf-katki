@@ -54,7 +54,7 @@ Dönüş **katı JSON** olmalı: `NaN`, `inf`, numpy türleri yok (`float(x)`, `
 
 | Yasak | Neden |
 |---|---|
-| Ağ erişimi: `requests`, `urllib`, `http.client`, `socket`, `paho`, model indirme (`torch.hub`, `YOLO("yolov8n.pt")` gibi çıplak adla indirme) | Cihaz internetsiz çalışabilir; hasta verisi dışarı çıkamaz |
+| Ağ erişimi: `requests`, `urllib`, `http.client`, `socket`, `paho`, model indirme (`torch.hub`, `YOLO("yolov8n.pt")` gibi çıplak adla indirme) | Cihaz internetsiz çalışabilir; modül kendi başına dışarıyla konuşmaz |
 | `subprocess`, `os.system`, `os.popen` | Uygulama içinde başka program çalıştırılmaz |
 | `sys.exit`, `os._exit`, `quit()`, `exit()` | Uygulamayı kapatır |
 | Kamera, mikrofon, seri port, pencere: `cv2.VideoCapture`, `cv2.imshow`, `serial`, `sounddevice`, `tkinter` | Donanıma ve arayüze yalnız uygulama erişir |
@@ -94,10 +94,10 @@ yığına bağlı olmamalı (aynı örnek tek başına ve bir yığın içinde a
 
 `tests/test_<modul_adi>.py` en az şunları içerir:
 1. **Sözleşme testi:** `predict()` dönüşü §2'deki alanları ve türleri taşıyor.
-2. **İki örnek girdi** (sentetik ya da açık lisanslı; `docs/veri-kurallari.md`) ve beklenen etiket.
+2. **İki örnek girdi** (sahadan ya da açık veri setinden, her biri ≤ 1 MB) ve beklenen etiket.
 3. **Kötü girdi:** bozuk / boş dosya → anlaşılır bir `ValueError` (uygulamayı çökertmez, `sys.exit` yok).
 
 ## 7. Model kartı
 
-`MODEL_KARTI.md` (şablon: `sablonlar/model-karti.md`): veri kaynağı ve lisansı, eğitim yöntemi, doğrulama metrikleri (ayrı test kümesinde),
+`MODEL_KARTI.md` (şablon: `sablonlar/model-karti.md`): veri kaynağı, eğitim yöntemi, doğrulama metrikleri (ayrı test kümesinde),
 bilinen sınırlar, amaçlanan kullanım, kullanılmaması gereken durumlar. Metrikler kanıtsız yazılmaz.

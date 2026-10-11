@@ -12,3 +12,11 @@ yöntemin aynısıdır:
 5. **Yayın:** modül bir sonraki sürümle sahaya gider; sürüm notlarında ve model kartında adınız yer alır.
 
 Sizden istenen: denetleyiciden geçen, testleri olan, model kartı dolu bir modül ve inceleme sorularına yanıt.
+
+## Düzeltme ve kalibrasyon önerileri
+
+1. **İnceleme:** ekip ölçümünüzü ve analizinizi okur; gerekirse aynı ölçümü tekrarlamanızı ya da ek veri ister.
+2. **Uygulama:** önerilen değer ana uygulamada ayar ya da düzeltme olarak işlenir (yapılandırma, eşik, katsayı, metin). Cihaz güvenliğiyle ilgili
+   alanlarda (bobin, doz, durdurma) değişiklik ekibin kendi doğrulamasından sonra yapılır.
+3. **Doğrulama:** önerinizdeki "nasıl doğrulanır" adımı uygulandıktan sonra tekrarlanır.
+4. **Duyuru:** sonuç konunuzda yazılır; sürüm notlarında öneriniz adınızla anılır.

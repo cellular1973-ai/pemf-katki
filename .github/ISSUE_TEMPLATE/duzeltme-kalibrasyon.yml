@@ -1,0 +1,48 @@
+name: Düzeltme / kalibrasyon
+description: Sahada ölçtüğünüz ya da gözlediğiniz bir sapma, yanlış sonuç ya da yanlış ayar — verisi ve önerinizle
+labels: ["duzeltme-kalibrasyon"]
+body:
+  - type: dropdown
+    id: konu
+    attributes:
+      label: Konu
+      options:
+        - "AI modülü sonucu"
+        - "Kabin / kamera konumu"
+        - "Petri / fantom (plaka konumu, eksen, halka, renk eşiği)"
+        - "Bobin (direnç, alan şiddeti)"
+        - "Sensör (sıcaklık, akım)"
+        - "Arayüzde gösterilen değer / birim / metin"
+        - "Diğer"
+    validations:
+      required: true
+  - type: textarea
+    id: gozlem
+    attributes:
+      label: Ne gördünüz, ne olması gerekirdi?
+      placeholder: "Ör. Termal modül sağlıklı bilinen 12 kedinin 7'sine 'Hasta' dedi."
+    validations:
+      required: true
+  - type: textarea
+    id: kosullar
+    attributes:
+      label: Koşullar
+      description: Tarih / saat, cihaz / kabin, yazılım sürümü (Ayarlar → Sistem Bilgileri), ölçüm aleti ve hassasiyeti, ortam, kaç tekrar.
+    validations:
+      required: true
+  - type: textarea
+    id: veri
+    attributes:
+      label: Veri
+      description: Fotoğraf, CSV, ekran görüntüsü, günlük — sürükleyip bırakın. Çoksa öneri klasörüyle PR açın (OGRENCI-REHBERI.md §6).
+  - type: textarea
+    id: oneri
+    attributes:
+      label: Önerdiğiniz düzeltme / kalibrasyon
+      placeholder: "Ör. 'Hasta' eşiği 0,50 → 0,65; halka çapı 184 → 180 mm."
+    validations:
+      required: true
+  - type: textarea
+    id: dogrulama
+    attributes:
+      label: Ekip doğru uygulandığını nasıl görebilir? (isteğe bağlı)

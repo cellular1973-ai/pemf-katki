@@ -1,6 +1,8 @@
 [tool.ruff]
 line-length = 140
 target-version = "py310"
+# Öneri klasörlerindeki analiz betikleri / not defterleri biçim denetimine girmez (CI'ı kırmasın).
+extend-exclude = ["oneriler"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B"]
