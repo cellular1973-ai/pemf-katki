@@ -1,0 +1,5 @@
+# Her değişiklik proje ekibinin onayını ister (dal koruması: "Require review from Code Owners").
+*                @mert61-python
+/araclar/        @mert61-python
+/docs/           @mert61-python
+/.github/        @mert61-python

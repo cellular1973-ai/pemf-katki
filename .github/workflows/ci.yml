@@ -1,0 +1,28 @@
+name: denetim
+# Yalnız Linux (gizli depoda dakika 1x sayılır); tek iş ~1-2 dk.
+on:
+  pull_request:
+  push:
+    branches: [ana]
+permissions:
+  contents: read
+concurrency:
+  group: denetim-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  denetim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Biçim (ruff)
+        run: ruff check .
+      - name: Modül sözleşmesi
+        run: python araclar/sozlesme_denetimi.py moduller/*/
+      - name: Testler
+        run: pytest

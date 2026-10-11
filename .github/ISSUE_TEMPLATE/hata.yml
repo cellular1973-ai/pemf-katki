@@ -1,0 +1,23 @@
+name: Hata
+description: Bu depodaki bir modülde, denetleyicide ya da belgede hata
+labels: ["hata"]
+body:
+  - type: input
+    id: yer
+    attributes:
+      label: Nerede?
+      placeholder: "moduller/ornek_parlaklik/predictor.py ya da araclar/sozlesme_denetimi.py"
+    validations:
+      required: true
+  - type: textarea
+    id: adimlar
+    attributes:
+      label: Nasıl tekrarlanır?
+      description: Komut, girdi (sentetik), beklenen ve gerçekleşen sonuç.
+    validations:
+      required: true
+  - type: input
+    id: ortam
+    attributes:
+      label: Ortam
+      placeholder: "Windows 11, Python 3.10.x, numpy 1.26.x"

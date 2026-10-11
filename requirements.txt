@@ -1,0 +1,6 @@
+# Ana uygulamanın ortamıyla uyumlu tutun (Python 3.10, numpy 1.26). Yeni paket gerekiyorsa PR'da gerekçesini yazın.
+numpy>=1.26,<2
+pillow>=10
+onnxruntime>=1.19
+pytest>=8
+ruff>=0.6

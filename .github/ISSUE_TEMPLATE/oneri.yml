@@ -1,0 +1,40 @@
+name: Öneri
+description: Yeni bir AI modülü, iyileştirme, rapor şablonu ya da arayüz önerisi
+labels: ["oneri"]
+body:
+  - type: markdown
+    attributes:
+      value: "Önce `KAPSAM.md`'ye bakın: bobin sürüşü, ACİL DURDUR, firmware, ödeme ve gerçek hasta verisi kapsam dışıdır."
+  - type: dropdown
+    id: alan
+    attributes:
+      label: Alan
+      options: ["AI modülü", "Açıklanabilirlik (XAI)", "Rapor şablonu", "Arayüz önerisi", "Belge / çeviri", "Diğer"]
+    validations:
+      required: true
+  - type: textarea
+    id: sorun
+    attributes:
+      label: Hangi sorunu çözüyor?
+      description: Kim için (hekim, hayvan sahibi, araştırmacı), hangi durumda?
+    validations:
+      required: true
+  - type: textarea
+    id: oneri
+    attributes:
+      label: Öneriniz
+      description: Ne yapılacak? AI modülüyse girdi türü, çıktı etiketleri ve veri kaynağı (lisansıyla).
+    validations:
+      required: true
+  - type: textarea
+    id: taslak
+    attributes:
+      label: Taslak / ekran görüntüsü (isteğe bağlı)
+      description: Gerçek hasta verisi içeren görüntü EKLEMEYİN.
+  - type: checkboxes
+    id: onay
+    attributes:
+      label: Onay
+      options:
+        - label: Gerçek hasta verisi paylaşmıyorum ve öneri KAPSAM.md'nin kapsam dışı alanlarına dokunmuyor.
+          required: true

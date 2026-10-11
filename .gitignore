@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+# Eğitim verisi ve büyük dosyalar depoya girmez (docs/veri-kurallari.md)
+veri/
+*.zip
+*.pt
+*.pth
+*.ckpt
