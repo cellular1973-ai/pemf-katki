@@ -73,7 +73,8 @@ def test_ad_klasorle_uyusmazsa_kalir(tmp_path):
 
 
 def test_belirlenimci_olmayan_kalir(tmp_path):
-    govde = "import random\n        m = random.random()"
+    # Her çağrıda kesin farklı sonuç (rastgele değil — rastgele sayı iki çağrıda %50 aynı etiketi verip testi şansa bağlıyordu).
+    govde = 'self.n = getattr(self, "n", 0) + 1\n        m = 0.0 if self.n == 1 else 1.0'
     assert any("belirlenimci değil" in h for h in _hatalar(_modul(tmp_path, govde=govde)))
 
 
