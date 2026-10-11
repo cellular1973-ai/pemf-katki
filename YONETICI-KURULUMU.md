@@ -1,34 +1,22 @@
 # Yönetici kurulumu (proje sahibi için)
 
-Bu depo yerelde hazırlandı; GitHub'a yükleme ve ayarlar sahip tarafından yapılır.
+## Kurulu olanlar (2026-10-11)
+- Depo: **https://github.com/mert61-python/pemf-katki** — **gizli**, varsayılan dal `ana`.
+- **Dal koruması (`ana`):** PR zorunlu · 1 onay · kod sahibi (`@mert61-python`) onayı · `denetim` CI'ı geçmeli ve dal güncel olmalı · yeni commit gelince
+  eski onay düşer · force-push ve silme kapalı. Yönetici olarak siz doğrudan push edebilirsiniz; öğrenciler edemez.
+- **Ayarlar:** Discussions ve Projects açık, Wiki kapalı, yalnız "squash" birleştirme, birleşen dal otomatik silinir.
+- **Etiketler:** `oneri`, `hata`, `iyi-ilk-is`, `ai-modulu`, `kapsam-disi`, `entegre-edildi`.
+- **CI (`denetim`):** yalnız Linux, ~1–2 dk; ruff + modül sözleşmesi denetleyicisi + testler. Depoda hiçbir gizli anahtar (secret) yok.
 
-## 1. Organizasyon ve depo
-1. GitHub'da ücretsiz bir **organizasyon** açın (ör. `pemf-vet-katki`). Öğrenciler kişisel hesabınıza değil organizasyona davet edilir.
-2. Organizasyonda **gizli (private)** depo oluşturun: `pemf-katki`. Varsayılan dal: `ana`.
-3. Bu klasörü yükleyin:
-   ```bash
-   git remote add origin https://github.com/<organizasyon>/pemf-katki.git
-   git push -u origin ana
-   ```
+## Öğrenci eklemek
+- GitHub web: depo → Settings → Collaborators → **Add people** → kullanıcı adı. Öğrenci yalnız bu depoyu görür; ana uygulama deposuna erişimi olmaz.
+- Komutla: `gh api -X PUT repos/mert61-python/pemf-katki/collaborators/<kullanici_adi> -f permission=push`
+- Ayrılan öğrenci: Settings → Collaborators → **Remove**.
 
-## 2. Erişim
-- **Takımlar:** `ogrenciler` (Write — yalnız bu depo) · `ekip` (Maintain). Ana uygulama deposuna öğrenci erişimi YOK.
-- Davet etmeden önce katkı sözleşmesi imzalanır (`KATKI-SOZLESMESI-TASLAK.md`, hukukçu onayından sonra).
-- Ayrılan öğrencinin erişimi takımdan çıkarılarak kapatılır.
+## İsteğe bağlı: organizasyon
+Öğrenci sayısı artarsa ücretsiz bir GitHub organizasyonu açılıp depo oraya taşınabilir (Settings → Transfer); takımlarla toplu yetki verilir.
+Organizasyon API ile açılamaz, GitHub web'den açılır.
 
-## 3. Dal koruması (`ana`)
-Settings → Branches → kural: **Require a pull request** · **Require approvals: 1** · **Require review from Code Owners** · **Require status checks:
-`denetim`** · **Do not allow bypassing** · force-push ve silme kapalı.
-
-## 4. Actions
-- Settings → Actions → **Fork pull request workflows**: onay gereksin. Depoya **hiçbir gizli anahtar (secret) eklenmez.**
-- Bu deponun CI'ı yalnız Linux'ta ~1–2 dk; gizli depoda dakika sınırını zorlamaz.
-
-## 5. Topluluk
-- **Discussions** açın (sorular, fikirler). **Projects** panosu: Öneri → Kabul → Yapılıyor → İncelemede → Ana uygulamaya alındı.
-- Etiketler: `oneri`, `hata`, `iyi-ilk-is`, `ai-modulu`, `kapsam-disi`, `entegre-edildi`.
-- Ders kapsamındaysa **GitHub Classroom** bu depodan ödev şablonu üretebilir.
-
-## 6. Ana uygulamaya alma
+## Ana uygulamaya alma
 Kabul edilen modül ana depoya `docs/entegrasyon.md`'deki yöntemle alınır: koordinatör bir entegrasyon oturumu açar (yama, kopya değil),
 ardından bağımsız inceleme. Hoca paketinin entegrasyonu (AI-1 / AI-2) bunun ilk örneği.

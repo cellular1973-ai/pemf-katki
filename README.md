@@ -38,7 +38,3 @@ denetleyiciyi kendi modülünüzde koşturun.
 4. Katkınız sürüm notlarında ve modülün model kartında adınızla anılır.
 
 Ayrıntılar: `KATKI.md`. Veri kuralları: `docs/veri-kurallari.md` — **gerçek hasta verisi bu depoya ASLA girmez.**
-
-## Hukuki not
-
-Bu depo özeldir; içeriği paylaşılmaz. Katkılar `KATKI-SOZLESMESI.md`'deki koşullara tabidir.

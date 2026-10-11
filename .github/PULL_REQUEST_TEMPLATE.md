@@ -8,4 +8,3 @@
 - [ ] `MODEL_KARTI.md` dolu: veri kaynağı ve lisansı, ayrı test kümesindeki metrikler ve nasıl üretildikleri
 - [ ] Gerçek hasta verisi, sır (parola / anahtar / jeton) ya da 95 MB'tan büyük dosya YOK
 - [ ] `KAPSAM.md`'nin kapsam dışı alanlarına dokunmuyor
-- [ ] Katkı sözleşmesini kabul ediyorum (`KATKI-SOZLESMESI.md`)
